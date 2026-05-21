@@ -27,10 +27,9 @@ const DOWNLOAD_LINKS = {
 };
 
 const downloadModal = document.getElementById("download-modal");
-const openDownloadButtons = [
-  document.getElementById("open-download-modal"),
-  document.getElementById("open-download-modal-footer"),
-].filter(Boolean);
+const openDownloadButtons = document.querySelectorAll(
+  "#open-download-modal, #open-download-modal-footer, [data-open-download-modal]",
+);
 const closeModalNodes = downloadModal
   ? downloadModal.querySelectorAll("[data-close-modal]")
   : [];
@@ -49,39 +48,40 @@ function getDownloadTargets() {
   };
 }
 
-async function renderQrCodes() {
-  if (qrRendered || typeof QRCode === "undefined") {
+function qrImageUrl(text) {
+  const params = new URLSearchParams({
+    size: "168x168",
+    margin: "0",
+    data: text,
+  });
+
+  return `https://api.qrserver.com/v1/create-qr-code/?${params.toString()}`;
+}
+
+function renderQrCodes() {
+  if (qrRendered) {
     return;
   }
 
   const targets = getDownloadTargets();
   const pairs = [
-    ["qr-app-store", targets.appStore],
-    ["qr-google-play", targets.googlePlay],
-    ["qr-apk", targets.apk],
+    ["qr-app-store", targets.appStore, "link-app-store"],
+    ["qr-google-play", targets.googlePlay, "link-google-play"],
+    ["qr-apk", targets.apk, "link-apk"],
   ];
 
-  await Promise.all(
-    pairs.map(async ([canvasId, url]) => {
-      const canvas = document.getElementById(canvasId);
-      if (!canvas) {
-        return;
-      }
+  pairs.forEach(([imageId, url, linkId]) => {
+    const image = document.getElementById(imageId);
+    const link = document.getElementById(linkId);
 
-      await QRCode.toCanvas(canvas, url, {
-        width: 168,
-        margin: 1,
-        color: {
-          dark: "#061018",
-          light: "#ffffff",
-        },
-      });
-    }),
-  );
+    if (image) {
+      image.src = qrImageUrl(url);
+    }
 
-  document.getElementById("link-app-store").href = targets.appStore;
-  document.getElementById("link-google-play").href = targets.googlePlay;
-  document.getElementById("link-apk").href = targets.apk;
+    if (link) {
+      link.href = url;
+    }
+  });
 
   qrRendered = true;
 }
@@ -94,7 +94,7 @@ function openDownloadModal() {
   lastFocusedElement = document.activeElement;
   downloadModal.hidden = false;
   document.body.classList.add("modal-open");
-  void renderQrCodes();
+  renderQrCodes();
 
   const closeButton = downloadModal.querySelector(".download-modal-close");
   if (closeButton) {

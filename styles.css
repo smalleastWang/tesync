@@ -255,6 +255,12 @@ h3 {
   padding: 0 22px;
 }
 
+button.button {
+  appearance: none;
+  cursor: pointer;
+  font: inherit;
+}
+
 .button:hover,
 .store-button:hover {
   transform: translateY(-2px);
@@ -574,10 +580,11 @@ body.modal-open {
   background: #fff;
 }
 
-.qr-frame canvas {
+.qr-image {
   display: block;
   width: 168px;
   height: 168px;
+  object-fit: contain;
 }
 
 .qr-card a {
