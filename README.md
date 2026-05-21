@@ -22,10 +22,8 @@ python3 -m http.server 8080
 
 ## 下载发布
 
-首页下载按钮指向当前公开展示仓库的最新 Release：
+首页「安装包下载」会弹出三个二维码：App Store、Google Play、APK 直装。
 
-```text
-https://github.com/smalleastWang/tesla-dash-web/releases/latest
-```
-
-以后发布 App 安装包时，在这个仓库的 GitHub Releases 上传 APK、IPA 或安装说明即可。
+1. 在 `script.js` 顶部修改 `DOWNLOAD_LINKS`，填入真实的 App Store 与 Google Play 链接。
+2. 将 Android APK 放到 `assets/` 目录，默认文件名为 `tdash.apk`（可在 `DOWNLOAD_LINKS.apkFile` 中改名）。
+3. 推送后 GitHub Pages 会自动更新；扫码 APK 二维码会打开当前站点的安装包地址。
