@@ -1,6 +1,6 @@
-# T-Dash Web
+# Tesync Web
 
-这是 T-Dash 的公开宣传网站仓库，用于 GitHub Pages 部署。App 主项目保持私有；这个仓库只包含展示页面、截图、演示视频、下载入口和隐私政策。
+这是 **Tesync** 的公开宣传落地页，视觉与结构参考 [tdash.cn](https://tdash.cn/)，内容基于 App 项目文档整理。用于 GitHub Pages 部署；App 源码保持私有，本仓库仅含展示页、截图、演示视频、下载入口与隐私政策。
 
 ## 本地预览
 
@@ -25,5 +25,5 @@ python3 -m http.server 8080
 首页「安装包下载」会弹出三个二维码：App Store、Google Play、APK 直装。
 
 1. 在 `script.js` 顶部修改 `DOWNLOAD_LINKS`，填入真实的 App Store 与 Google Play 链接。
-2. 将 Android APK 放到 `assets/` 目录，默认文件名为 `tdash.apk`（可在 `DOWNLOAD_LINKS.apkFile` 中改名）。
+2. 将 Android APK 放到 `assets/` 目录，默认文件名为 `tesync.apk`（可在 `DOWNLOAD_LINKS.apkFile` 中改名）。
 3. 推送后 GitHub Pages 会自动更新；扫码 APK 二维码会打开当前站点的安装包地址。

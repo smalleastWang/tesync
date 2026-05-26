@@ -5,166 +5,303 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="T-Dash 是为 Tesla 车主打造的车载仪表盘 App，提供实时仪表、BLE 车辆连接、行程记录与沉浸式横屏驾驶数据体验。"
+      content="Tesync — 手机即仪表。通过 Tesla 官方 BLE / vehicle-command 协议直连，实时速度、电量、行程与横屏沉浸仪表，专为 Tesla 车主设计。"
     />
-    <meta name="theme-color" content="#071018" />
-    <meta property="og:title" content="T-Dash | Tesla 车载仪表盘 App" />
-    <meta property="og:description" content="实时速度、功率、电量、续航与行程记录，专为 Tesla 车主设计。" />
+    <meta name="theme-color" content="#000000" />
+    <meta property="og:title" content="Tesync | 手机即仪表" />
+    <meta
+      property="og:description"
+      content="免登录、BLE 直连，把手机变成 Tesla 车载仪表盘。实时车况、横屏仪表、行程与加速测试。"
+    />
     <meta property="og:image" content="./assets/仪表页面.jpg" />
-    <title>T-Dash | Tesla 车载仪表盘 App</title>
+    <title>Tesync | 手机即仪表</title>
     <link rel="icon" href="./assets/launcher_icon.png" />
     <link rel="apple-touch-icon" href="./assets/launcher_icon.png" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <header class="site-header">
-      <a class="brand" href="#top" aria-label="T-Dash 首页">
-        <img src="./assets/launcher_icon.png" alt="" />
-        <span>T-Dash</span>
-      </a>
+    <header class="site-header" id="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#top" aria-label="Tesync 首页">
+          <img src="./assets/launcher_icon.png" alt="" />
+          <span class="brand-name" data-i18n="brand">Tesync</span>
+        </a>
 
-      <nav class="nav-links" aria-label="主导航">
-        <a href="#demo">演示</a>
-        <a href="#features">亮点</a>
-        <a href="#download">下载</a>
-      </nav>
+        <div class="header-actions">
+          <div class="nav-download">
+            <button
+              class="nav-download-btn"
+              type="button"
+              id="nav-download-toggle"
+              aria-expanded="false"
+              aria-haspopup="true"
+            >
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                />
+              </svg>
+              <span data-i18n="nav_download">下载</span>
+            </button>
+            <div class="nav-download-menu" id="nav-download-menu" hidden>
+              <button type="button" class="nav-download-item" data-open-download-modal>
+                <span class="nav-download-icon ios"></span>
+                <span data-i18n="nav_ios">App Store</span>
+              </button>
+              <button type="button" class="nav-download-item" data-open-download-modal>
+                <span class="nav-download-icon android">▶</span>
+                <span data-i18n="nav_android">Google Play</span>
+              </button>
+              <button type="button" class="nav-download-item" data-open-download-modal>
+                <span class="nav-download-icon apk">APK</span>
+                <span data-i18n="nav_apk">APK 直装</span>
+              </button>
+            </div>
+          </div>
+
+          <button class="lang-toggle" type="button" id="lang-toggle" aria-label="切换语言">EN</button>
+        </div>
+      </div>
     </header>
 
     <main id="top">
-      <section class="hero">
-        <div class="hero-media reveal" aria-label="T-Dash 横屏仪表截图">
-          <img src="./assets/仪表页面.jpg" alt="T-Dash 横屏仪表页面" />
-          <div class="hero-glass">
-            <img src="./assets/splash_logo.png" alt="" />
-            <span>Live BLE dashboard</span>
-          </div>
-        </div>
+      <section class="hero reveal-section">
+        <div class="hero-glow" aria-hidden="true"></div>
 
-        <div class="hero-copy reveal">
-          <p class="eyebrow">Tesla companion dashboard</p>
-          <h1>T-Dash</h1>
-          <p class="hero-text">
-            把 Tesla 的实时驾驶数据放到一个更专注、更适合车内扫读的仪表盘里。速度、功率、电量、续航、行程和连接状态，一眼就够。
-          </p>
+        <h1 class="hero-title">
+          <span data-i18n="hero_title_1">你的手机</span><br />
+          <span data-i18n="hero_title_2">就是</span>
+          <span class="gradient-text" data-i18n="hero_title_highlight">最好的仪表盘</span>
+        </h1>
 
-          <div class="hero-actions">
-            <button class="button primary" type="button" data-open-download-modal>下载 App</button>
-            <a class="button secondary" href="#demo">观看演示</a>
-          </div>
+        <p class="hero-desc">
+          <span data-i18n="hero_desc_1">无需繁琐硬件改装，无需第三方模块。</span><br />
+          <span data-i18n="hero_desc_2">通过 Tesla 官方 BLE / vehicle-command 协议直连，安全、低延迟、数据本地处理。</span>
+        </p>
 
-          <dl class="quick-stats" aria-label="应用特性">
-            <div>
-              <dt>BLE</dt>
-              <dd>车辆近场连接</dd>
-            </div>
-            <div>
-              <dt>Live</dt>
-              <dd>实时驾驶数据</dd>
-            </div>
-            <div>
-              <dt>Trip</dt>
-              <dd>行程与里程记录</dd>
-            </div>
-          </dl>
-        </div>
-      </section>
-
-      <section id="demo" class="demo-section section-wrap">
-        <div class="section-heading reveal">
-          <p class="eyebrow">App preview</p>
-          <h2>真实界面，真实驾驶信息。</h2>
-          <p>
-            T-Dash 聚焦驾驶时真正需要快速识别的数据。横屏仪表适合车内固定使用，竖屏页面则用于连接、查看行程和管理记录。
-          </p>
-        </div>
-
-        <div class="video-frame reveal">
-          <video controls playsinline preload="metadata" poster="./assets/仪表页面.jpg">
-            <source src="./assets/tdash-demo.mp4" type="video/mp4" />
-            你的浏览器暂不支持视频播放。
-          </video>
-        </div>
-      </section>
-
-      <section id="features" class="features section-wrap">
-        <div class="feature-copy reveal">
-          <p class="eyebrow">Why T-Dash</p>
-          <h2>为 Tesla 车主做的轻量车载数据中心。</h2>
+        <div class="hero-cta">
+          <button class="btn-primary" type="button" data-open-download-modal data-i18n="btn_download">
+            扫码下载 App
+          </button>
         </div>
 
         <div class="feature-grid">
-          <article class="feature-card reveal">
-            <span class="feature-icon">01</span>
-            <h3>横屏沉浸仪表</h3>
-            <p>大字号速度、功率和车辆状态，适合固定在车内时快速扫读。</p>
-          </article>
-          <article class="feature-card reveal">
-            <span class="feature-icon">02</span>
-            <h3>BLE 车辆连接</h3>
-            <p>围绕蓝牙连接状态做清晰反馈，让连接、授权和恢复过程更可感知。</p>
-          </article>
-          <article class="feature-card reveal">
-            <span class="feature-icon">03</span>
-            <h3>行程记录</h3>
-            <p>记录行驶里程与行程数据，日常通勤、自驾和测试都能回看。</p>
-          </article>
-          <article class="feature-card reveal">
-            <span class="feature-icon">04</span>
-            <h3>车内暗色风格</h3>
-            <p>降低夜间干扰，保留足够对比度，让数据比装饰更重要。</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="screens section-wrap">
-        <div class="landscape-shot reveal">
-          <img src="./assets/仪表页面.jpg" alt="T-Dash 仪表页面截图" />
-        </div>
-        <div class="portrait-shot reveal">
-          <img src="./assets/里程页面.jpg" alt="T-Dash 里程页面截图" />
-        </div>
-        <div class="screens-copy reveal">
-          <p class="eyebrow">Screens</p>
-          <h2>横屏看仪表，竖屏看行程。</h2>
-          <p>
-            一个 App 覆盖驾驶中和驾驶后的两个场景：正在路上时看实时仪表，停车后回看里程和行程数据。
-          </p>
-        </div>
-      </section>
-
-      <section id="download" class="download section-wrap">
-        <div class="download-panel reveal">
-          <div>
-            <p class="eyebrow">Download</p>
-            <h2>下载 T-Dash 最新版</h2>
-            <p>
-              支持 App Store、Google Play 与 Android APK 直接安装。用手机扫码即可跳转到对应商店或下载安装包。
+          <article class="glass-card reveal-section">
+            <div class="feature-icon" aria-hidden="true">🔒</div>
+            <h3 data-i18n="feature_1_title">隐私优先 & 本地存储</h3>
+            <p data-i18n="feature_1_desc">
+              无需把 Tesla 账号交给第三方服务器。行程、偏好与密钥材料分别保存在本地 Hive、SharedPreferences 与安全存储中。
             </p>
+          </article>
+          <article class="glass-card reveal-section">
+            <div class="feature-icon" aria-hidden="true">📡</div>
+            <h3 data-i18n="feature_2_title">官方 BLE 协议</h3>
+            <p data-i18n="feature_2_desc">
+              基于 VCSEC GATT 与 vehicle-command 桥接，与手机钥匙同类机制。统一由 BleConnectionManager 管理扫描、连接与重连。
+            </p>
+          </article>
+          <article class="glass-card reveal-section">
+            <div class="feature-icon" aria-hidden="true">⚡</div>
+            <h3 data-i18n="feature_3_title">实时驾驶数据</h3>
+            <p data-i18n="feature_3_desc">
+              VehicleLiveDataStore 汇聚车速、SOC、功率、续航与连接状态，横屏仪表、行程记录与加速测试共用同一数据源。
+            </p>
+          </article>
+        </div>
+
+        <div class="media-cards">
+          <div class="media-card reveal-section">
+            <div class="media-card-bg">
+              <img src="./assets/仪表页面.jpg" alt="" />
+            </div>
+            <div class="media-card-content">
+              <button class="play-btn" type="button" id="play-demo-video" aria-label="播放演示视频">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </button>
+              <h3 data-i18n="video_btn">观看实机演示</h3>
+              <p>
+                <span class="badge badge-red" data-i18n="video_tip_1">演示视频</span>
+                <span data-i18n="video_tip_2">横屏仪表与实时数据</span>
+              </p>
+            </div>
+            <video
+              id="demo-video"
+              class="demo-video-hidden"
+              controls
+              playsinline
+              preload="metadata"
+              poster="./assets/仪表页面.jpg"
+            >
+              <source src="./assets/tdash-demo.mp4" type="video/mp4" />
+            </video>
           </div>
 
-          <div class="download-actions">
-            <button class="store-button" type="button" id="open-download-modal" aria-haspopup="dialog">
-              <span>安装包下载</span>
-              <strong>扫码下载</strong>
-            </button>
-            <a class="store-button muted" href="./privacy.html">
-              <span>查看说明</span>
-              <strong>Privacy Policy</strong>
-            </a>
+          <a class="media-card reveal-section" href="#guide">
+            <div class="media-card-bg">
+              <img src="./assets/里程页面.jpg" alt="" />
+            </div>
+            <div class="media-card-content">
+              <div class="play-btn play-btn-blue" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  />
+                </svg>
+              </div>
+              <h3 data-i18n="tutorial_btn">查看连接流程</h3>
+              <p>
+                <span class="badge badge-blue" data-i18n="video_tip_1">快速上手</span>
+                <span data-i18n="tutorial_tip">BLE 配对与手机钥匙授权</span>
+              </p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section id="ui" class="section reveal-section">
+        <h2 class="section-title" data-i18n="section_ui">精美 UI，专为驾驶设计</h2>
+
+        <div class="ui-showcase">
+          <figure
+            class="phone-frame"
+            data-preview-src="./assets/里程页面.jpg"
+            tabindex="0"
+            role="button"
+            aria-label="查看竖屏界面大图"
+          >
+            <img src="./assets/里程页面.jpg" alt="Tesync 里程与行程页面" />
+            <span class="dynamic-island" aria-hidden="true"></span>
+          </figure>
+
+          <div class="landscape-grid">
+            <figure
+              class="tablet-frame tablet-wide"
+              data-preview-src="./assets/仪表页面.jpg"
+              tabindex="0"
+              role="button"
+              aria-label="查看横屏仪表大图"
+            >
+              <img src="./assets/仪表页面.jpg" alt="Tesync 经典横屏仪表" />
+              <span class="dynamic-island-side" aria-hidden="true"></span>
+            </figure>
+            <figure
+              class="tablet-frame"
+              data-preview-src="./assets/仪表页面.jpg"
+              tabindex="0"
+              role="button"
+              aria-label="查看仪表界面"
+            >
+              <img src="./assets/仪表页面.jpg" alt="Tesync 横屏仪表细节" />
+            </figure>
           </div>
+        </div>
+      </section>
+
+      <section id="promo" class="section reveal-section">
+        <h2 class="section-title" data-i18n="section_promo">功能一览</h2>
+        <p class="section-desc" data-i18n="section_promo_desc">横屏仪表、行程记录、加速测试与 BLE 连接，覆盖驾驶中与驾驶后场景</p>
+
+        <div class="promo-grid">
+          <article class="promo-card">
+            <span class="promo-tag" data-i18n="promo_1_tag">仪表</span>
+            <h3 data-i18n="promo_1_title">横屏沉浸仪表</h3>
+            <p data-i18n="promo_1_desc">经典横屏与双电机主题，大字号速度、功率与车辆状态，支持常亮与沉浸式显示。</p>
+          </article>
+          <article class="promo-card">
+            <span class="promo-tag" data-i18n="promo_2_tag">行程</span>
+            <h3 data-i18n="promo_2_title">自动行程 & 手动里程</h3>
+            <p data-i18n="promo_2_desc">Hive 持久化行程与里程记录，通勤、自驾与测试数据可回看。</p>
+          </article>
+          <article class="promo-card">
+            <span class="promo-tag" data-i18n="promo_3_tag">测试</span>
+            <h3 data-i18n="promo_3_title">加速测试</h3>
+            <p data-i18n="promo_3_desc">基于实时车速统计 0-60、0-100 与最高速，支持语音播报与历史记录。</p>
+          </article>
+          <article class="promo-card">
+            <span class="promo-tag" data-i18n="promo_4_tag">连接</span>
+            <h3 data-i18n="promo_4_title">BLE & 手机钥匙</h3>
+            <p data-i18n="promo_4_desc">扫描绑定、自动重连、授权状态清晰可感知，Android 可经 Go 桥发起 AddKey 请求。</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="guide" class="section section-muted reveal-section">
+        <h2 class="section-title" data-i18n="section_guide">连接流程</h2>
+        <p class="section-desc" data-i18n="section_guide_desc">简单几步，开启 Tesync 仪表盘体验</p>
+
+        <ol class="guide-steps">
+          <li class="guide-step reveal-section">
+            <span class="guide-num">1</span>
+            <div>
+              <h3 data-i18n="guide_1_title">打开 App 并进入连接</h3>
+              <p data-i18n="guide_1_desc">在设置页进入蓝牙入口，授予必要权限后开始扫描附近车辆。</p>
+            </div>
+          </li>
+          <li class="guide-step reveal-section">
+            <span class="guide-num">2</span>
+            <div>
+              <h3 data-i18n="guide_2_title">绑定车辆并完成授权</h3>
+              <p data-i18n="guide_2_desc">选择目标车辆绑定；Android 可通过 vehicle-command 桥完成手机钥匙授权与车内确认。</p>
+            </div>
+          </li>
+          <li class="guide-step reveal-section">
+            <span class="guide-num">3</span>
+            <div>
+              <h3 data-i18n="guide_3_title">进入横屏仪表</h3>
+              <p data-i18n="guide_3_desc">连接成功后打开经典横屏或双电机仪表，实时查看速度、电量、功率与连接状态。</p>
+            </div>
+          </li>
+          <li class="guide-step reveal-section">
+            <span class="guide-num">4</span>
+            <div>
+              <h3 data-i18n="guide_4_title">记录行程与加速测试</h3>
+              <p data-i18n="guide_4_desc">驾驶中看实时数据，停车后回看行程；需要时可进入加速测试页记录 0-100 成绩。</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section id="download" class="section download-cta reveal-section">
+        <div class="download-cta-panel glass-card">
+          <h2 data-i18n="download_title">下载 Tesync</h2>
+          <p data-i18n="download_desc">支持 App Store、Google Play 与 Android APK。扫码或点击按钮即可安装。</p>
+          <button class="btn-primary" type="button" id="open-download-modal" data-i18n="btn_download">
+            扫码下载 App
+          </button>
+          <a class="btn-ghost" href="./privacy.html" data-i18n="footer_privacy">隐私政策</a>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <span>© 2026 T-Dash</span>
-      <div>
-        <a href="./privacy.html">隐私政策</a>
-        <button class="footer-link-button" type="button" id="open-download-modal-footer">
+      <div class="footer-links">
+        <a href="./privacy.html" data-i18n="footer_privacy">隐私政策</a>
+        <button class="footer-link-button" type="button" id="open-download-modal-footer" data-i18n="nav_download">
           下载
         </button>
       </div>
+      <p class="footer-note">© 2026 Tesync. All rights reserved.</p>
+      <p class="footer-disclaimer" data-i18n="footer_disclaimer">Not affiliated with Tesla, Inc.</p>
     </footer>
+
+    <button class="back-to-top" type="button" id="back-to-top" hidden aria-label="回到顶部">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+      </svg>
+    </button>
+
+    <div id="lightbox" class="lightbox" hidden>
+      <button class="lightbox-close" type="button" data-close-lightbox aria-label="关闭">×</button>
+      <img id="lightbox-image" src="" alt="" />
+    </div>
 
     <div id="download-modal" class="download-modal" hidden>
       <div class="download-modal-backdrop" data-close-modal></div>
@@ -174,12 +311,10 @@
         aria-modal="true"
         aria-labelledby="download-modal-title"
       >
-        <button class="download-modal-close" type="button" data-close-modal aria-label="关闭">
-          ×
-        </button>
+        <button class="download-modal-close" type="button" data-close-modal aria-label="关闭">×</button>
         <p class="eyebrow">Download</p>
-        <h2 id="download-modal-title">扫码下载 T-Dash</h2>
-        <p class="download-modal-desc">使用手机相机或扫码 App 扫描下方二维码</p>
+        <h2 id="download-modal-title" data-i18n="modal_title">扫码下载 Tesync</h2>
+        <p class="download-modal-desc" data-i18n="modal_desc">使用手机相机或扫码 App 扫描下方二维码</p>
 
         <div class="qr-grid">
           <article class="qr-card">
@@ -187,7 +322,7 @@
             <div class="qr-frame">
               <img id="qr-app-store" class="qr-image" width="168" height="168" alt="App Store 下载二维码" />
             </div>
-            <a id="link-app-store" href="#" target="_blank" rel="noreferrer">在 App Store 打开</a>
+            <a id="link-app-store" href="#" target="_blank" rel="noreferrer" data-i18n="link_app_store">在 App Store 打开</a>
           </article>
 
           <article class="qr-card">
@@ -195,15 +330,15 @@
             <div class="qr-frame">
               <img id="qr-google-play" class="qr-image" width="168" height="168" alt="Google Play 下载二维码" />
             </div>
-            <a id="link-google-play" href="#" target="_blank" rel="noreferrer">在 Google Play 打开</a>
+            <a id="link-google-play" href="#" target="_blank" rel="noreferrer" data-i18n="link_google_play">在 Google Play 打开</a>
           </article>
 
           <article class="qr-card">
-            <h3>APK 直装</h3>
+            <h3>APK</h3>
             <div class="qr-frame">
               <img id="qr-apk" class="qr-image" width="168" height="168" alt="APK 下载二维码" />
             </div>
-            <a id="link-apk" href="#" target="_blank" rel="noreferrer">下载 Android 安装包</a>
+            <a id="link-apk" href="#" target="_blank" rel="noreferrer" data-i18n="link_apk">下载 Android 安装包</a>
           </article>
         </div>
       </div>
