@@ -2,7 +2,7 @@ const visibleClass = "is-visible";
 
 const DOWNLOAD_LINKS = {
   appStore: "https://apps.apple.com/app/id0000000000",
-  googlePlay: "https://play.google.com/store/apps/details?id=com.example.tesync",
+  googlePlay: "https://play.google.com/store/apps/details?id=com.smileast.dash.tesla_dash",
   apkFile: "./assets/tesync.apk",
 };
 
@@ -201,7 +201,7 @@ function renderQrCodes() {
   const targets = getDownloadTargets();
   const pairs = [
     // ["qr-app-store", targets.appStore, "link-app-store"],
-    // ["qr-google-play", targets.googlePlay, "link-google-play"],
+    ["qr-google-play", targets.googlePlay, "link-google-play"],
     ["qr-apk", targets.apk, "link-apk"],
   ];
 
