@@ -3,7 +3,7 @@ const visibleClass = "is-visible";
 const DOWNLOAD_LINKS = {
   appStore: "https://apps.apple.com/app/id0000000000",
   googlePlay: "https://play.google.com/store/apps/details?id=com.smileast.dash.tesla_dash",
-  apkFile: "./assets/tesync.apk",
+  apkFile: "http://dsm.smileast.com:5000/sharing/y9LsTCiYg",
 };
 
 const FEEDBACK_EMAIL = "your-email@example.com";
