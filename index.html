@@ -279,11 +279,77 @@
           <a class="btn-ghost" href="./privacy.html" data-i18n="footer_privacy">隐私政策</a>
         </div>
       </section>
+
+      <section id="feedback" class="section feedback-section reveal-section">
+        <div class="feedback-shell">
+          <div class="feedback-copy">
+            <p class="eyebrow" data-i18n="feedback_eyebrow">Feedback</p>
+            <h2 class="section-title" data-i18n="feedback_title">遇到问题？告诉我</h2>
+            <p class="section-desc" data-i18n="feedback_desc">
+              无论是连接问题、界面建议还是下载异常，都可以通过这里反馈。提交后会自动整理成邮件发送给 Tesync 支持邮箱。
+            </p>
+          </div>
+
+          <form class="feedback-form glass-card" id="feedback-form" novalidate>
+            <div class="form-row">
+              <label for="feedback-name" data-i18n="feedback_name">称呼</label>
+              <input
+                id="feedback-name"
+                name="name"
+                type="text"
+                autocomplete="name"
+                data-i18n-placeholder="feedback_name_placeholder"
+                placeholder="你的称呼"
+              />
+            </div>
+
+            <div class="form-row">
+              <label for="feedback-email" data-i18n="feedback_email">联系邮箱</label>
+              <input
+                id="feedback-email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                data-i18n-placeholder="feedback_email_placeholder"
+                placeholder="方便回复你的邮箱"
+              />
+            </div>
+
+            <div class="form-row">
+              <label for="feedback-type" data-i18n="feedback_type">反馈类型</label>
+              <select id="feedback-type" name="type">
+                <option value="问题反馈" data-i18n="feedback_type_bug">问题反馈</option>
+                <option value="功能建议" data-i18n="feedback_type_feature">功能建议</option>
+                <option value="下载/安装" data-i18n="feedback_type_download">下载/安装</option>
+                <option value="其他" data-i18n="feedback_type_other">其他</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <label for="feedback-message" data-i18n="feedback_message">问题描述</label>
+              <textarea
+                id="feedback-message"
+                name="message"
+                rows="6"
+                required
+                data-i18n-placeholder="feedback_message_placeholder"
+                placeholder="请尽量写清楚设备、车型、系统版本、发生步骤或截图线索"
+              ></textarea>
+            </div>
+
+            <button class="btn-primary feedback-submit" type="submit" data-i18n="feedback_submit">
+              发送反馈
+            </button>
+            <p class="feedback-status" id="feedback-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
       <div class="footer-links">
         <a href="./privacy.html" data-i18n="footer_privacy">隐私政策</a>
+        <a href="#feedback" data-i18n="footer_feedback">问题反馈</a>
         <button class="footer-link-button" type="button" id="open-download-modal-footer" data-i18n="nav_download">
           下载
         </button>

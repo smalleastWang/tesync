@@ -6,6 +6,8 @@ const DOWNLOAD_LINKS = {
   apkFile: "./assets/tesync.apk",
 };
 
+const FEEDBACK_EMAIL = "your-email@example.com";
+
 const I18N = {
   zh: {
     brand: "Tesync",
@@ -60,6 +62,27 @@ const I18N = {
     guide_4_desc: "驾驶中看实时数据，停车后回看行程；需要时可进入加速测试页记录 0-100 成绩。",
     download_title: "下载 Tesync",
     download_desc: "支持 App Store、Google Play 与 Android APK。扫码或点击按钮即可安装。",
+    feedback_eyebrow: "Feedback",
+    feedback_title: "遇到问题？告诉我",
+    feedback_desc:
+      "无论是连接问题、界面建议还是下载异常，都可以通过这里反馈。提交后会自动整理成邮件发送给 Tesync 支持邮箱。",
+    feedback_name: "称呼",
+    feedback_name_placeholder: "你的称呼",
+    feedback_email: "联系邮箱",
+    feedback_email_placeholder: "方便回复你的邮箱",
+    feedback_type: "反馈类型",
+    feedback_type_bug: "问题反馈",
+    feedback_type_feature: "功能建议",
+    feedback_type_download: "下载/安装",
+    feedback_type_other: "其他",
+    feedback_message: "问题描述",
+    feedback_message_placeholder: "请尽量写清楚设备、车型、系统版本、发生步骤或截图线索",
+    feedback_submit: "发送反馈",
+    feedback_status_required: "请先填写问题描述。",
+    feedback_status_email_missing: "请先在 script.js 顶部配置 FEEDBACK_EMAIL。",
+    feedback_status_opened: "已打开邮件客户端，请确认发送。",
+    feedback_status_failed: "无法打开邮件客户端，请复制内容后手动发送邮件。",
+    footer_feedback: "问题反馈",
     footer_privacy: "隐私政策",
     footer_disclaimer: "与 Tesla, Inc. 无关联。",
     modal_title: "扫码下载 Tesync",
@@ -122,6 +145,27 @@ const I18N = {
     guide_4_desc: "Review trips after parking; run acceleration tests when you need 0-100 records.",
     download_title: "Get Tesync",
     download_desc: "App Store, Google Play or direct APK. Scan the QR code to install.",
+    feedback_eyebrow: "Feedback",
+    feedback_title: "Found an issue?",
+    feedback_desc:
+      "Connection bugs, UI ideas or download problems are welcome here. The form turns your feedback into an email to Tesync support.",
+    feedback_name: "Name",
+    feedback_name_placeholder: "Your name",
+    feedback_email: "Reply email",
+    feedback_email_placeholder: "Email for follow-up",
+    feedback_type: "Feedback type",
+    feedback_type_bug: "Bug report",
+    feedback_type_feature: "Feature idea",
+    feedback_type_download: "Download/install",
+    feedback_type_other: "Other",
+    feedback_message: "Details",
+    feedback_message_placeholder: "Device, vehicle, OS version, steps or screenshot clues are helpful",
+    feedback_submit: "Send Feedback",
+    feedback_status_required: "Please describe the issue first.",
+    feedback_status_email_missing: "Please configure FEEDBACK_EMAIL at the top of script.js first.",
+    feedback_status_opened: "Your email app is open. Please confirm and send.",
+    feedback_status_failed: "Unable to open your email app. Please copy the content and send it manually.",
+    footer_feedback: "Feedback",
     footer_privacy: "Privacy Policy",
     footer_disclaimer: "Not affiliated with Tesla, Inc.",
     modal_title: "Scan to Download Tesync",
@@ -146,6 +190,8 @@ const lightbox = document.getElementById("lightbox");
 const lightboxImage = document.getElementById("lightbox-image");
 const playDemoButton = document.getElementById("play-demo-video");
 const demoVideo = document.getElementById("demo-video");
+const feedbackForm = document.getElementById("feedback-form");
+const feedbackStatus = document.getElementById("feedback-status");
 
 const openDownloadButtons = document.querySelectorAll(
   "#open-download-modal, #open-download-modal-footer, [data-open-download-modal]",
@@ -183,6 +229,13 @@ function applyLanguage(lang) {
     const key = node.getAttribute("data-i18n");
     if (strings[key]) {
       node.textContent = strings[key];
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((node) => {
+    const key = node.getAttribute("data-i18n-placeholder");
+    if (strings[key]) {
+      node.placeholder = strings[key];
     }
   });
 
@@ -335,6 +388,60 @@ function closeVideoOverlay() {
   }
 }
 
+function setFeedbackStatus(messageKey, type = "info") {
+  if (!feedbackStatus) {
+    return;
+  }
+
+  feedbackStatus.textContent = I18N[currentLang][messageKey] || "";
+  feedbackStatus.dataset.type = type;
+}
+
+function handleFeedbackSubmit(event) {
+  event.preventDefault();
+
+  if (!feedbackForm) {
+    return;
+  }
+
+  const formData = new FormData(feedbackForm);
+  const name = String(formData.get("name") || "").trim();
+  const replyEmail = String(formData.get("email") || "").trim();
+  const type = String(formData.get("type") || "").trim();
+  const message = String(formData.get("message") || "").trim();
+
+  if (!message) {
+    setFeedbackStatus("feedback_status_required", "error");
+    document.getElementById("feedback-message")?.focus();
+    return;
+  }
+
+  if (!FEEDBACK_EMAIL || FEEDBACK_EMAIL === "your-email@example.com") {
+    setFeedbackStatus("feedback_status_email_missing", "error");
+    return;
+  }
+
+  const subject = `[Tesync Feedback] ${type || "Feedback"}`;
+  const body = [
+    `Type: ${type || "-"}`,
+    `Name: ${name || "-"}`,
+    `Reply Email: ${replyEmail || "-"}`,
+    "",
+    "Message:",
+    message,
+    "",
+    `Page: ${window.location.href}`,
+    `Time: ${new Date().toLocaleString()}`,
+  ].join("\n");
+
+  const mailtoUrl = `mailto:${encodeURIComponent(FEEDBACK_EMAIL)}?subject=${encodeURIComponent(
+    subject,
+  )}&body=${encodeURIComponent(body)}`;
+
+  setFeedbackStatus("feedback_status_opened", "success");
+  window.location.href = mailtoUrl;
+}
+
 function handleScroll() {
   const scrollTop = window.scrollY;
 
@@ -399,6 +506,10 @@ if (langToggle) {
 
 if (playDemoButton) {
   playDemoButton.addEventListener("click", openVideoOverlay);
+}
+
+if (feedbackForm) {
+  feedbackForm.addEventListener("submit", handleFeedbackSubmit);
 }
 
 document.querySelectorAll("[data-preview-src]").forEach((node) => {

@@ -27,3 +27,15 @@ python3 -m http.server 8080
 1. 在 `script.js` 顶部修改 `DOWNLOAD_LINKS`，填入真实的 App Store 与 Google Play 链接。
 2. 将 Android APK 放到 `assets/` 目录，默认文件名为 `tesync.apk`（可在 `DOWNLOAD_LINKS.apkFile` 中改名）。
 3. 推送后 GitHub Pages 会自动更新；扫码 APK 二维码会打开当前站点的安装包地址。
+
+## 问题反馈邮箱
+
+首页底部包含「问题反馈」表单。由于 GitHub Pages 是静态托管，默认方案会通过 `mailto:` 打开访客本机邮件客户端，并自动填好反馈内容。
+
+在 `script.js` 顶部修改：
+
+```js
+const FEEDBACK_EMAIL = "your-email@example.com";
+```
+
+把它替换为你的真实收件邮箱即可。
