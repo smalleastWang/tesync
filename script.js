@@ -1,7 +1,7 @@
 const visibleClass = "is-visible";
 
 const DOWNLOAD_LINKS = {
-  appStore: "https://apps.apple.com/app/id0000000000",
+  appStore: "https://apps.apple.com/cn/app/tesync/id6774207820",
   googlePlay: "https://play.google.com/store/apps/details?id=com.smileast.dash.tesla_dash",
   apkFile: "http://dsm.smileast.com:5000/sharing/y9LsTCiYg",
 };
